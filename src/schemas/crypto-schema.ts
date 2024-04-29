@@ -7,12 +7,15 @@ export const currencySchema = z.object({
 });
 
 
-export const cryptoCurrencyResponse = z.array(
+export const cryptoCurrencyResponse = 
 z.object({
     CoinInfo: z.object({
         FullName: z.string(),
         Name: z.string()
        
     })
-}));
+});
+
+
+export const cryptoCurrenciesSchema = z.array(cryptoCurrencyResponse)
 

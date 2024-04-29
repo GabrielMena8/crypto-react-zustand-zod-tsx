@@ -8,6 +8,7 @@ function App() {
   useEffect(() => {
     fetchCrypto()
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   , [])
 
 
