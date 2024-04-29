@@ -4,6 +4,7 @@ import { useState } from "react"
 import {p} from "../types"
 
 
+
 export default function Form() {
     const [error, setError] = useState(false)
     const [pair, setPair] = useState<p>({
@@ -13,6 +14,7 @@ export default function Form() {
     })
     const crypto  = useCryptoStore((state) => state.cryptoCurrencies)
     const exchange = useCryptoStore((state) => state.fetchData)
+    
 
 
 
@@ -21,7 +23,8 @@ export default function Form() {
             ...pair,
             [e.target.name]: e.target.value
         })
-        console.log(pair)
+
+
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,6 +43,7 @@ export default function Form() {
 
  
     return (
+        <>
         <form className="form"
             onSubmit={handleSubmit}
         >   
@@ -74,5 +78,8 @@ export default function Form() {
 
             <input type="submit" value="Cotizar" className="button-primary"/>
         </form>
+       
+       
+    </>
   )
 }
