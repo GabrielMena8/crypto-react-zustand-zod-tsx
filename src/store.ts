@@ -1,33 +1,22 @@
 ///https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD
+//https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD,EUR
 
 import { create} from "zustand";
-import axios from "axios";
-import { cryptoCurrenciesSchema} from "./schemas/crypto-schema";
-import { cryptoCurrency } from "./types";
+import { fetchCrypto, fetchExchange } from "./services/fetchService";
+import { cryptoCurrency, p } from "./types";
+
 
 import {devtools} from "zustand/middleware";
 
 type cryptoStore={
     cryptoCurrencies: cryptoCurrency[],
-    fetchCrypto: () => Promise<void>
-    
-}
-
-async function fetchCrypto() {
-    const response = await axios(`https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD`);
-    const data = await response;
-
-    const { Data } = data.data;
-
-    const result = cryptoCurrenciesSchema.safeParse(Data);
-
-    if (result.success) {
-       return result.data;
-    }
+    fetchCrypto: () => Promise<void>,
+    fetchData: (pair: p) => Promise<void>
     
 }
 
 
+//Acciones que se pueden realizar en el store
 
 export const useCryptoStore = create<cryptoStore>()(devtools((set) => ({
     cryptoCurrencies: [],
@@ -35,9 +24,13 @@ export const useCryptoStore = create<cryptoStore>()(devtools((set) => ({
         const data = await fetchCrypto();
     
         set(()=> ({ cryptoCurrencies: data }));
+    },
 
-        console.log(data);
-      
+    fetchData: async (pair) => {
+        const data = await fetchExchange(pair);
+        
+        return data;
+
     }
 
 

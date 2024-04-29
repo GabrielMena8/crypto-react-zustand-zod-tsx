@@ -86,3 +86,12 @@ body{
 input[type="submit"]:hover {
     background-color: #4f9f7f;
 }
+
+.error {
+    color: var(--white);
+    font-size: 2rem;
+    text-align: center;
+    background-color: red;
+    padding : 2rem;
+
+}
